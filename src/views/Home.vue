@@ -132,7 +132,13 @@
           <!-- Final da 2ª linha do formulário -->
           <!-- Área do botão de cadastro -->
           <b-row>
-            <b-button block class="rounded-0" variant="light" type="submit"
+            <b-button
+              block
+              class="rounded-0"
+              variant="light"
+              type="submit"
+              :disabled="disableSubmit()"
+              :title="disableSubmit() ? 'Digite um CEP e número' : ''"
               >Cadastrar endereço</b-button
             >
           </b-row>
@@ -168,13 +174,30 @@ export default {
     };
   },
   methods: {
+    disableSubmit() {
+      if (this.address.cep === "" && this.address.numero === "") {
+        return true;
+      }
+      return false;
+    },
     saveAddredss(event) {
       event.preventDefault();
       try {
         this.addresses = JSON.parse(localStorage.getItem("addresses"));
-        this.addresses.push(this.address);
-        localStorage.setItem("addresses", JSON.stringify(this.addresses));
-        this.$router.push("/enderecos");
+        let existe = this.addresses.some(endereco => {
+          return (
+            endereco.cep === this.address.cep &&
+            endereco.numero === this.address.numero
+          );
+        });
+        if (!existe) {
+          this.addresses.push(this.address);
+          localStorage.setItem("addresses", JSON.stringify(this.addresses));
+          this.$router.push("/enderecos");
+        } else {
+          this.error.status = true;
+          this.error.message = "Este endereço já está cadastrado no sistema.";
+        }
       } catch (e) {
         this.error.status = true;
         this.error.message =
