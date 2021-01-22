@@ -2,11 +2,14 @@
   <b-container class="home" fluid="md">
     <Alert :display="error.status" :message="error.message" />
     <b-form id="addAddress">
-      <b-row align-v="center" fluid="md">
-        <b-col class="banner">
-          <!-- <img src="../assets/images/3929712.jpg" width="500" /> -->
+      <b-row align-v="center" align-h="center">
+        <b-col class="banner" md="6">
+          <figure>
+            <img src="../assets/images/3929712.jpg" width="500" />
+            <figcaption><a href='https://www.freepik.com/vectors/travel'>Travel vector created by stories - www.freepik.com</a></figcaption>
+          </figure>
         </b-col>
-        <b-col>
+        <b-col md="6">
           <b-row align-v="center">
             <b-col md="4">
               <b-form-group label="CEP" label-for="cep" class="input-label">
@@ -172,9 +175,8 @@ export default {
         this.clearAll();
       }
       if (this.address.cep.length > 7) {
-        let cep = this.address.cep.replace("-", "")
-        cep = cep.replace(".", "")
-        console.log(cep);
+        let cep = this.address.cep.replace("-", "");
+        cep = cep.replace(".", "");
         this.$axios
         .get(`https://viacep.com.br/ws/${cep}/json/`)
         .then(response => {
@@ -206,12 +208,6 @@ export default {
 }
 .home {
   text-align: left;
-}
-.banner {
-  height: 50vh;
-  background-image: url("../assets/images/3929712.jpg");
-  background-repeat: no-repeat;
-  background-size: 500px auto;
 }
 #addAddress button {
   margin-top: 10px;

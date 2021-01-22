@@ -4,10 +4,10 @@
     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
     <b-collapse id="nav-collapse" is-nav>
       <b-navbar-nav class="ml-auto">
-        <b-navbar-nav>
-        <b-nav-item href="#" disabled>Inicial</b-nav-item>
-        <b-nav-item to="/about" class="spotlight-button">Listar endereços</b-nav-item>
-      </b-navbar-nav>
+        <b-nav-item :to="{ name: 'Home' }">Inicial</b-nav-item>
+        <b-nav-item :to="{ name: 'Enderecos' }" class="spotlight-button">
+          Listar endereços
+        </b-nav-item>
       </b-navbar-nav>
     </b-collapse>
   </b-navbar>
