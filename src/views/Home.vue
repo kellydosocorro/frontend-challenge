@@ -1,7 +1,7 @@
 <template>
   <b-container class="home" fluid="md">
     <Alert :display="error.status" :message="error.message" />
-    <b-form id="addAddress">
+    <b-form id="addAddress" @submit="saveAddredss">
       <b-row align-v="center" align-h="center">
         <b-col class="banner" md="6">
           <figure class="main-banner">
@@ -108,7 +108,7 @@
               block
               class="rounded-0"
               variant="light"
-              @click="saveAddredss()"
+              type="submit"
               >Cadastrar endereço</b-button
             >
           </b-row>
@@ -145,9 +145,12 @@ export default {
     };
   },
   methods: {
-    saveAddredss() {
+    saveAddredss(event) {
+      event.preventDefault()
+      this.addresses = JSON.parse(localStorage.getItem("addresses"));
       this.addresses.push(this.address);
       localStorage.setItem("addresses", JSON.stringify(this.addresses));
+      this.$router.push("/enderecos");
     },
     disabledLogradouro() {
       let sizeCep = this.address.cep.length;

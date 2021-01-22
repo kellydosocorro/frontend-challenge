@@ -1,10 +1,6 @@
 <template>
   <div id="app">
     <Navbar />
-    <!-- <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div> -->
     <router-view />
     <Footer />
   </div>
@@ -14,7 +10,20 @@ import Navbar from "./components/Navbar.vue";
 import Footer from "./components/Footer.vue";
 export default {
   name: "App",
-  components: { Navbar, Footer }
+  components: { Navbar, Footer },
+  methods: {
+    verifyAddressKey() {
+      if ("addresses" in localStorage) {
+        return true;
+      }
+      return false;
+    }
+  },
+  created() {
+    if (!this.verifyAddressKey()) {
+      localStorage.setItem("addresses", JSON.stringify([]));
+    }
+  }
 };
 </script>
 <style>
