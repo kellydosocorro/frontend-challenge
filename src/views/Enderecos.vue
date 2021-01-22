@@ -24,7 +24,7 @@
         </b-button-toolbar>
         <!-- Começo do Modal de Edição -->
         <Modal
-          :id="'editar-' + formatarCEP(item.cep)"
+          :id="'editar-' + formatarCEP(item.cep) + '-' + item.numero"
           :title="item.cep + ' - Editar'"
           :isShow.sync="isShow"
         >
@@ -143,7 +143,7 @@
 </template>
 <script>
 import Modal from "../components/Modal.vue";
-import Alert from "../components/Alert.vue"
+import Alert from "../components/Alert.vue";
 export default {
   name: "Enderecos",
   components: { Modal, Alert },
@@ -196,14 +196,19 @@ export default {
           }
         }
         localStorage.setItem("addresses", JSON.stringify(this.enderecos));
-        this.$bvModal.hide("editar-" + this.formatarCEP(paraEditar.cep));
+        this.$bvModal.hide(
+          "editar-" + this.formatarCEP(paraEditar.cep) + "-" + paraEditar.numero
+        );
       } catch (e) {
         this.error.status = true;
         this.error.message = e.message;
       }
     },
     abrirEdicaoEndereco(paraAbrir) {
-      this.$bvModal.show("editar-" + this.formatarCEP(paraAbrir.cep));
+      console.log(paraAbrir);
+      this.$bvModal.show(
+        "editar-" + this.formatarCEP(paraAbrir.cep) + "-" + paraAbrir.numero
+      );
     },
     deletarEndereco(paraDeletar) {
       try {
