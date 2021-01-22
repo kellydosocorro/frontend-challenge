@@ -1,38 +1,51 @@
 <template>
   <b-container class="home" fluid="md">
+    <!-- Mensagens de erro -->
     <Alert :display="error.status" :message="error.message" />
-    <b-form id="addAddress" @submit="saveAddredss">
-      <b-row align-v="center" align-h="center">
-        <b-col class="banner" md="6">
-          <figure class="main-banner">
-            <img src="../assets/images/3929712.jpg" width="500" />
-            <figcaption>
-              <a href="https://www.freepik.com/vectors/travel"
-                >Illustration created by stories - www.freepik.com</a
-              >
-            </figcaption>
-          </figure>
-        </b-col>
-        <b-col md="6">
+    <!-- Começo do corpo da página principal -->
+    <b-row align-v="center" align-h="center">
+      <!-- Área do Banner -->
+      <b-col class="banner">
+        <figure class="main-banner">
+          <img src="../assets/images/3929712.jpg" width="500" />
+          <!-- Legenda do Banner -->
+          <figcaption>
+            <a href="https://www.freepik.com/vectors/travel" target="_blank"
+              >Illustration created by stories - www.freepik.com</a
+            >
+          </figcaption>
+        </figure>
+      </b-col>
+      <!-- Fim da área do banner -->
+      <!-- Área do formulário -->
+      <b-col md="6">
+        <!-- Começo do formulário de cadastro -->
+        <b-form id="addAddress" @submit="saveAddredss">
+          <!-- Início da 1ª Linha do formulário -->
           <b-row align-v="center">
+            <!-- InputGroup do CEP -->
             <b-col md="4">
               <b-form-group label="CEP" label-for="cep" class="input-label">
+                <!-- Input do CEP -->
                 <b-form-input
                   id="cep"
                   v-model="address.cep"
                   placeholder="00.000-000"
                   v-mask="'XX.XXX-XXX'"
                   class="rounded-0"
+                  :state="address.cep.length === 10"
                   required
                 ></b-form-input>
               </b-form-group>
             </b-col>
+            <!-- InputGroup do Logradouro -->
             <b-col>
               <b-form-group
                 label="Logradouro"
                 label-for="cep"
                 class="input-label"
               >
+                <!-- Input do Logradouro -->
                 <b-form-input
                   id="logradouro"
                   :disabled="disabledLogradouro()"
@@ -43,25 +56,34 @@
                 ></b-form-input>
               </b-form-group>
             </b-col>
+            <!-- InputGroup do Número -->
             <b-col md="2">
               <b-form-group label="Nº" label-for="numero" class="input-label">
+                <!-- Input do Número -->
                 <b-form-input
                   id="numero"
                   v-model="address.numero"
                   placeholder="22"
                   class="rounded-0"
+                  :state="
+                    address.cep.length === 10 && address.numero.length > 0
+                  "
                   required
                 ></b-form-input>
               </b-form-group>
             </b-col>
           </b-row>
+          <!-- Final da 1ª Linha do formulário -->
+          <!-- Início da 2ª Linha do formulário -->
           <b-row>
+            <!-- InputGroup do Complemento -->
             <b-col md="6">
               <b-form-group
                 label="Complemento"
                 label-for="complemento"
                 class="input-label"
               >
+                <!-- Input do Complemento -->
                 <b-form-input
                   id="complemento"
                   v-model="address.complemento"
@@ -70,12 +92,14 @@
                 ></b-form-input>
               </b-form-group>
             </b-col>
+            <!-- InputGroup da Cidade -->
             <b-col md="4">
               <b-form-group
                 label="Cidade"
                 label-for="cidade"
                 class="input-label"
               >
+                <!-- Input da Cidade -->
                 <b-form-input
                   id="cidade"
                   disabled
@@ -86,12 +110,14 @@
                 ></b-form-input>
               </b-form-group>
             </b-col>
+            <!-- InputGroup do Estado -->
             <b-col md="2">
               <b-form-group
                 label="Estado"
                 label-for="estado"
                 class="input-label"
               >
+                <!-- Input do Estado -->
                 <b-form-input
                   id="estado"
                   disabled
@@ -103,20 +129,17 @@
               </b-form-group>
             </b-col>
           </b-row>
+          <!-- Final da 2ª linha do formulário -->
+          <!-- Área do botão de cadastro -->
           <b-row>
-            <b-button
-              block
-              class="rounded-0"
-              variant="light"
-              type="submit"
+            <b-button block class="rounded-0" variant="light" type="submit"
               >Cadastrar endereço</b-button
             >
           </b-row>
-        </b-col>
-      </b-row>
-    </b-form>
-    <b-row>
-      <b-col> </b-col>
+        </b-form>
+        <!-- Fim do formulário -->
+      </b-col>
+      <!-- Fim da área do formulário -->
     </b-row>
   </b-container>
 </template>
@@ -146,11 +169,17 @@ export default {
   },
   methods: {
     saveAddredss(event) {
-      event.preventDefault()
-      this.addresses = JSON.parse(localStorage.getItem("addresses"));
-      this.addresses.push(this.address);
-      localStorage.setItem("addresses", JSON.stringify(this.addresses));
-      this.$router.push("/enderecos");
+      event.preventDefault();
+      try {
+        this.addresses = JSON.parse(localStorage.getItem("addresses"));
+        this.addresses.push(this.address);
+        localStorage.setItem("addresses", JSON.stringify(this.addresses));
+        this.$router.push("/enderecos");
+      } catch (e) {
+        this.error.status = true;
+        this.error.message =
+          "Ops, parece que ocorreu um erro ao processar esta operação. Por favor, tente novamente.";
+      }
     },
     disabledLogradouro() {
       let sizeCep = this.address.cep.length;
@@ -160,12 +189,6 @@ export default {
       } else {
         return false;
       }
-    },
-    statusCep() {
-      if (this.address.cep === "") {
-        return true;
-      }
-      return false;
     },
     clearAll() {
       this.address.cep = "";
@@ -202,6 +225,8 @@ export default {
           })
           .catch(() => {
             this.error.status = true;
+            this.error.message =
+              "Ops, parece que ocorreu um erro ao processar esta operação. Por favor, tente novamente.";
           });
       }
     }
@@ -214,11 +239,11 @@ export default {
 }
 .main-banner figcaption a {
   font-size: 0.65rem;
-  color:#B5B5B5;
+  color: #b5b5b5;
 }
-@media (max-width: 1024px) {
+@media (max-width: 991px) {
   .banner {
-    display: block;
+    display: none;
   }
 }
 .home {
