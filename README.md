@@ -14,3 +14,11 @@ Para executar o projeto, utilize o comando  `npm run serve` para executar o proj
 ### 3. Para interromper a execução
 
 No terminal onde o projeto está sendo executado, utilize as teclas `CTRL + C` para interromper a execução.
+
+## Versões utilizadas no projeto
+```
+  @vue/cli 4.4.4
+  axios 0.18.0
+  prettier 1.19.1
+  @vue/cli-plugin-router 4.5.0
+```
