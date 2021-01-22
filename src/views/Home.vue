@@ -6,7 +6,11 @@
         <b-col class="banner" md="6">
           <figure>
             <img src="../assets/images/3929712.jpg" width="500" />
-            <figcaption><a href='https://www.freepik.com/vectors/travel'>Travel vector created by stories - www.freepik.com</a></figcaption>
+            <figcaption>
+              <a href="https://www.freepik.com/vectors/travel"
+                >Travel vector created by stories - www.freepik.com</a
+              >
+            </figcaption>
           </figure>
         </b-col>
         <b-col md="6">
@@ -118,7 +122,7 @@
 </template>
 
 <script>
-import Alert from "@/components/Alert.vue"
+import Alert from "@/components/Alert.vue";
 export default {
   name: "Home",
   components: { Alert },
@@ -135,7 +139,7 @@ export default {
       addresses: [],
       address_by_cep: {},
       error: {
-        message: 'CEP inválido, por favor, insira um CEP válido. ',
+        message: "CEP inválido, por favor, insira um CEP válido. ",
         status: false
       }
     };
@@ -143,21 +147,22 @@ export default {
   methods: {
     saveAddredss() {
       this.addresses.push(this.address);
-      localStorage.setItem("addresses", JSON.stringify(this.addresses))
+      localStorage.setItem("addresses", JSON.stringify(this.addresses));
     },
     disabledLogradouro() {
       let sizeCep = this.address.cep.length;
       let lastNumbers = this.address.cep.substring(sizeCep - 3);
-        if (lastNumbers !== "000") {
-            return true;
-          } else {
-            return false;
-          } 
+      if (lastNumbers !== "000") {
+        return true;
+      } else {
+        return false;
+      }
     },
     statusCep() {
       if (this.address.cep === "") {
-        return true
-      } return false;
+        return true;
+      }
+      return false;
     },
     clearAll() {
       this.address.cep = "";
@@ -171,30 +176,30 @@ export default {
   watch: {
     "address.cep"() {
       this.error.status = false;
-      if(this.address.cep.length === 0) {
+      if (this.address.cep.length === 0) {
         this.clearAll();
       }
       if (this.address.cep.length > 7) {
         let cep = this.address.cep.replace("-", "");
         cep = cep.replace(".", "");
         this.$axios
-        .get(`https://viacep.com.br/ws/${cep}/json/`)
-        .then(response => {
-          this.address_by_cep = response.data;
-          console.log(this.address_by_cep)
-          if ("cep" in this.address_by_cep) {
-            this.error.status = false;
-            this.address.estado = this.address_by_cep.uf;
-            this.address.logradouro = this.address_by_cep.logradouro;
-            this.address.cidade = this.address_by_cep.localidade;
-            this.address.complemento = this.address_by_cep.complemento;
-          } else {
+          .get(`https://viacep.com.br/ws/${cep}/json/`)
+          .then(response => {
+            this.address_by_cep = response.data;
+            console.log(this.address_by_cep);
+            if ("cep" in this.address_by_cep) {
+              this.error.status = false;
+              this.address.estado = this.address_by_cep.uf;
+              this.address.logradouro = this.address_by_cep.logradouro;
+              this.address.cidade = this.address_by_cep.localidade;
+              this.address.complemento = this.address_by_cep.complemento;
+            } else {
+              this.error.status = true;
+            }
+          })
+          .catch(() => {
             this.error.status = true;
-          }
-        })
-        .catch(() => {
-          this.error.status = true;
-        });
+          });
       }
     }
   }

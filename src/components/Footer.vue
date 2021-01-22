@@ -6,8 +6,8 @@
 </template>
 <script>
 export default {
-  name: 'Footer'
-}
+  name: "Footer"
+};
 </script>
 <style>
 @media (max-width: 1023px) {

@@ -14,7 +14,7 @@
 </template>
 <script>
 export default {
-  name: 'Alert',
+  name: "Alert",
   props: {
     message: {
       type: String,
@@ -29,12 +29,12 @@ export default {
       default: "danger"
     }
   }
-}
+};
 </script>
 <style scoped>
 .general-alert {
-  background: #FF4040;
-  color: #FFF0F5; 
+  background: #ff4040;
+  color: #fff0f5;
   padding: 15px 60px;
   border: 0px;
 }
