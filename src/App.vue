@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <Navbar />
-    <router-view />
+    <transition name="fade">
+      <router-view />
+    </transition>
     <Footer />
   </div>
 </template>
@@ -34,17 +36,16 @@ export default {
   text-align: center;
   color: #2c3e50;
 }
-
-#nav {
-  padding: 30px;
+.fade-enter-active, .fade-leave-active {
+  transition-property: opacity;
+  transition-duration: .15s;
 }
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
+.fade-enter-active {
+  transition-delay: .15s;
 }
 
-#nav a.router-link-exact-active {
-  color: #42b983;
+.fade-enter, .fade-leave-active {
+  opacity: 0
 }
 </style>

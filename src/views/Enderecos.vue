@@ -1,5 +1,7 @@
 <template>
   <b-container fluid="md" class="about">
+    <!-- Mensagens de erro -->
+    <Alert :display="error.status" :message="error.message" />
     <!-- Começo da tabela de endereços -->
     <b-table striped hover :items="enderecos" :fields="fields" show-empty>
       <!-- Mensagem para exibição quando a tabela está vazia -->
@@ -141,9 +143,10 @@
 </template>
 <script>
 import Modal from "../components/Modal.vue";
+import Alert from "../components/Alert.vue"
 export default {
   name: "Enderecos",
-  components: { Modal },
+  components: { Modal, Alert },
   data() {
     return {
       enderecos: [],
@@ -173,7 +176,11 @@ export default {
           label: "Opções"
         }
       ],
-      isShow: false
+      isShow: false,
+      error: {
+        status: false,
+        message: ""
+      }
     };
   },
   methods: {
@@ -191,20 +198,26 @@ export default {
         localStorage.setItem("addresses", JSON.stringify(this.enderecos));
         this.$bvModal.hide("editar-" + this.formatarCEP(paraEditar.cep));
       } catch (e) {
-        console.error(e);
+        this.error.status = true;
+        this.error.message = e.message;
       }
     },
     abrirEdicaoEndereco(paraAbrir) {
       this.$bvModal.show("editar-" + this.formatarCEP(paraAbrir.cep));
     },
     deletarEndereco(paraDeletar) {
-      for (let i = 0; i < this.enderecos.length; i++) {
-        const address = this.enderecos[i];
-        if (address === paraDeletar) {
-          this.enderecos.splice(i, 1);
+      try {
+        for (let i = 0; i < this.enderecos.length; i++) {
+          const address = this.enderecos[i];
+          if (address === paraDeletar) {
+            this.enderecos.splice(i, 1);
+          }
         }
+        localStorage.setItem("addresses", JSON.stringify(this.enderecos));
+      } catch (e) {
+        this.error.status = true;
+        this.error.message = e.message;
       }
-      localStorage.setItem("addresses", JSON.stringify(this.enderecos));
     }
   },
   created() {

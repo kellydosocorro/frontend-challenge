@@ -23,10 +23,6 @@ export default {
     display: {
       type: Boolean,
       default: false
-    },
-    alert_type: {
-      type: String,
-      default: "danger"
     }
   }
 };
