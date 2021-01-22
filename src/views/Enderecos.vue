@@ -229,7 +229,7 @@ export default {
     },
     apagarTodos() {
       localStorage.setItem("addresses", JSON.stringify([]));
-      location.reload();
+      this.enderecos = JSON.parse(localStorage.getItem("addresses"));
     }
   },
   created() {
