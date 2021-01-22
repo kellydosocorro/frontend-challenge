@@ -8,7 +8,7 @@ Utilize o comando `git clone https://github.com/kellydosocorro/frontend-challeng
 
 ### 2. Entre na pasta do projeto e o execute
 
-Para executar o projeto, utilize o comando  `npm run serve` para executar o projeto. Abra qualquer um dos links que aparecer no terminal após o comando.
+Para executar o projeto, utilize primeiramente o comando `npm install` e após a conclusão deste, execute o `npm run serve` para executar o projeto. Abra qualquer um dos links que aparecer no terminal após o comando.
 
 
 ### 3. Para interromper a execução
