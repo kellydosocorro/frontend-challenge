@@ -139,6 +139,9 @@
       <!-- Fim da personalização do campo Opções -->
     </b-table>
     <!-- Fim da tabela de enderecos -->
+    <b-button class="rounded-0" variant="danger" @click="apagarTodos()"
+      >Apagar todos</b-button
+    >
   </b-container>
 </template>
 <script>
@@ -223,6 +226,10 @@ export default {
         this.error.status = true;
         this.error.message = e.message;
       }
+    },
+    apagarTodos() {
+      localStorage.setItem("addresses", JSON.stringify([]));
+      location.reload();
     }
   },
   created() {
