@@ -1,24 +1,16 @@
 # frontend-challenge
 
-## Project setup
-```
-npm install
-```
+Projeto baseado no desafio 
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+### 1. Baixe o projeto
 
-### Compiles and minifies for production
-```
-npm run build
-```
+Utilize o comando `git clone https://github.com/kellydosocorro/frontend-challenge.git` para clonar a pasta do repositório em seu dispositivo.
 
-### Lints and fixes files
-```
-npm run lint
-```
+### 2. Entre na pasta do projeto e o execute
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+Para executar o projeto, utilize o comando  `npm run serve` para executar o projeto. Abra qualquer um dos links que aparecer no terminal após o comando.
+
+
+### 3. Para interromper a execução
+
+No terminal onde o projeto está sendo executado, utilize as teclas `CTRL + C` para interromper a execução.
