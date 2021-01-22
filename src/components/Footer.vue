@@ -10,9 +10,13 @@ export default {
 };
 </script>
 <style>
-@media (max-width: 1023px) {
+@media (max-width: 1024px) {
   .footer {
     display: none;
+  }
+  body {
+    overflow-y: auto !important;
+    padding-bottom: 100px;
   }
 }
 body {

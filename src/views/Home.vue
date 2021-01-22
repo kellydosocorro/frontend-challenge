@@ -257,17 +257,15 @@ export default {
 };
 </script>
 <style scoped>
+.main-banner {
+  text-align: center;
+}
 .main-banner figcaption {
   text-align: center;
 }
 .main-banner figcaption a {
   font-size: 0.65rem;
   color: #b5b5b5;
-}
-@media (max-width: 991px) {
-  .banner {
-    display: none;
-  }
 }
 .home {
   text-align: left;
