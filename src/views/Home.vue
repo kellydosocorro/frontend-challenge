@@ -4,11 +4,11 @@
     <b-form id="addAddress">
       <b-row align-v="center" align-h="center">
         <b-col class="banner" md="6">
-          <figure>
+          <figure class="main-banner">
             <img src="../assets/images/3929712.jpg" width="500" />
             <figcaption>
               <a href="https://www.freepik.com/vectors/travel"
-                >Travel vector created by stories - www.freepik.com</a
+                >Illustration created by stories - www.freepik.com</a
               >
             </figcaption>
           </figure>
@@ -206,6 +206,13 @@ export default {
 };
 </script>
 <style scoped>
+.main-banner figcaption {
+  text-align: center;
+}
+.main-banner figcaption a {
+  font-size: 0.65rem;
+  color:#B5B5B5;
+}
 @media (max-width: 1024px) {
   .banner {
     display: block;
