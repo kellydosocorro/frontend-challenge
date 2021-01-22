@@ -1,7 +1,10 @@
 <template>
   <b-container fluid="md" class="about">
     <!-- <h1>This is an about page</h1> -->
-    <b-table striped hover :items="enderecos" :fields="fields">
+    <b-table striped hover :items="enderecos" :fields="fields" show-empty>
+      <template #empty>
+        <h6>Não há endereços cadastrados para exibição</h6>
+      </template>
       <template v-slot:cell(opcoes)="{ item }">
         <b-button-toolbar :aria-label="'Opções para o cep ' + item.cep">
           <b-button-group size="sm" class="options-toolbar">
@@ -26,6 +29,7 @@ export default {
       fields: [
         {
           key: "cep",
+          label: "cep".toLocaleUpperCase(),
           sortable: true
         },
         {
@@ -44,7 +48,8 @@ export default {
           key: "estado"
         },
         {
-          key: "opcoes"
+          key: "opcoes",
+          label: "Opções"
         }
       ]
     };
