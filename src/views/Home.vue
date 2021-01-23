@@ -186,26 +186,31 @@ export default {
     },
     saveAddredss(event) {
       event.preventDefault();
-      try {
-        this.addresses = JSON.parse(localStorage.getItem("addresses"));
-        let existe = this.addresses.some(endereco => {
-          return (
-            endereco.cep === this.address.cep &&
-            endereco.numero === this.address.numero
-          );
-        });
-        if (!existe) {
-          this.addresses.push(this.address);
-          localStorage.setItem("addresses", JSON.stringify(this.addresses));
-          this.$router.push("/enderecos");
-        } else {
+      if (this.address.cep.length === 10 && !this.cepReturnErro()) {
+        try {
+          this.addresses = JSON.parse(localStorage.getItem("addresses"));
+          let existe = this.addresses.some(endereco => {
+            return (
+              endereco.cep === this.address.cep &&
+              endereco.numero === this.address.numero
+            );
+          });
+          if (!existe) {
+            this.addresses.push(this.address);
+            localStorage.setItem("addresses", JSON.stringify(this.addresses));
+            this.$router.push("/enderecos");
+          } else {
+            this.error.status = true;
+            this.error.message = "Este endereço já está cadastrado no sistema.";
+          }
+        } catch (e) {
           this.error.status = true;
-          this.error.message = "Este endereço já está cadastrado no sistema.";
+          this.error.message =
+            "Ops, parece que ocorreu um erro ao processar esta operação. Por favor, tente novamente.";
         }
-      } catch (e) {
+      } else {
         this.error.status = true;
-        this.error.message =
-          "Ops, parece que ocorreu um erro ao processar esta operação. Por favor, tente novamente.";
+        this.error.message = "CEP inválido, por favor, insira um CEP válido. ";
       }
     },
     disabledLogradouro() {

@@ -3,7 +3,6 @@
     v-model="display"
     class="position-fixed fixed-top m-0 rounded-0 general-alert"
     style="z-index: 2000;"
-    dismissible
   >
     <b-row align-v="center">
       <b-col>
