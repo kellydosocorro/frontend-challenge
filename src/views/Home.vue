@@ -31,7 +31,7 @@
                   id="cep"
                   v-model="address.cep"
                   placeholder="00.000-000"
-                  v-mask="'XX.XXX-XXX'"
+                  v-mask="'##.###-###'"
                   class="rounded-0"
                   :state="address.cep.length === 10 && !cepReturnErro()"
                   required
