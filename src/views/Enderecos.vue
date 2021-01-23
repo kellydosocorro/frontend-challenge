@@ -31,12 +31,16 @@
             <form>
               <b-row align-v="center">
                 <b-col md="4">
-                  <b-form-group label="CEP" label-for="cep" class="input-label">
+                  <b-form-group
+                    label="CEP"
+                    label-for="editar-cep"
+                    class="input-label"
+                  >
                     <b-form-input
-                      id="cep"
+                      id="editar-cep"
                       v-model="item.cep"
                       placeholder="00.000-000"
-                      v-mask="'XX.XXX-XXX'"
+                      v-mask="'##.###-###'"
                       class="rounded-0"
                       disabled
                     ></b-form-input>
@@ -45,13 +49,12 @@
                 <b-col>
                   <b-form-group
                     label="Logradouro"
-                    label-for="cep"
+                    label-for="editar-logradouro"
                     class="input-label"
                   >
                     <b-form-input
-                      id="logradouro"
+                      id="editar-logradouro"
                       v-model="item.logradouro"
-                      placeholder="Passagem Dias"
                       class="rounded-0"
                       disabled
                     ></b-form-input>
@@ -60,13 +63,12 @@
                 <b-col md="2">
                   <b-form-group
                     label="Nº"
-                    label-for="numero"
+                    label-for="editar-numero"
                     class="input-label"
                   >
                     <b-form-input
-                      id="numero"
+                      id="editar-numero"
                       v-model="item.numero"
-                      placeholder="22"
                       class="rounded-0"
                       required
                     ></b-form-input>
@@ -77,11 +79,11 @@
                 <b-col md="6">
                   <b-form-group
                     label="Complemento"
-                    label-for="complemento"
+                    label-for="editar-complemento"
                     class="input-label"
                   >
                     <b-form-input
-                      id="complemento"
+                      id="editar-complemento"
                       v-model="item.complemento"
                       placeholder="Ao lado da padaria"
                       class="rounded-0"
@@ -91,13 +93,12 @@
                 <b-col md="4">
                   <b-form-group
                     label="Cidade"
-                    label-for="cidade"
+                    label-for="editar-cidade"
                     class="input-label"
                   >
                     <b-form-input
-                      id="cidade"
+                      id="editar-cidade"
                       v-model="item.cidade"
-                      placeholder="Belém"
                       class="rounded-0"
                       disabled
                     ></b-form-input>
@@ -106,13 +107,12 @@
                 <b-col md="2">
                   <b-form-group
                     label="Estado"
-                    label-for="estado"
+                    label-for="editar-estado"
                     class="input-label"
                   >
                     <b-form-input
-                      id="estado"
+                      id="editar-estado"
                       v-model="item.estado"
-                      placeholder="PA"
                       class="rounded-0"
                       disabled
                     ></b-form-input>

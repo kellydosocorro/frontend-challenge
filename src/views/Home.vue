@@ -42,7 +42,7 @@
             <b-col>
               <b-form-group
                 label="Logradouro"
-                label-for="cep"
+                label-for="logradouro"
                 class="input-label"
               >
                 <!-- Input do Logradouro -->
@@ -210,11 +210,16 @@ export default {
     },
     disabledLogradouro() {
       let sizeCep = this.address.cep.length;
-      let lastNumbers = this.address.cep.substring(sizeCep - 3);
-      if (lastNumbers !== "000") {
-        return true;
+      let cep = this.address.cep;
+      let lastNumbers = cep.substring(sizeCep - 3);
+      if (!this.cepReturnErro()) {
+        if (lastNumbers !== "000") {
+          return true;
+        } else {
+          return false;
+        }
       } else {
-        return false;
+        return true;
       }
     },
     clearAll() {
@@ -233,13 +238,13 @@ export default {
         this.clearAll();
       }
       if (this.address.cep.length === 10) {
-        let cep = this.address.cep.replace("-", "");
+        let original_cep = this.address.cep;
+        let cep = original_cep.replace("-", "");
         cep = cep.replace(".", "");
         await this.$axios
           .get(`https://viacep.com.br/ws/${cep}/json/`)
           .then(response => {
             this.address_by_cep = response.data;
-            console.log(this.address_by_cep);
             if ("cep" in this.address_by_cep) {
               this.error.status = false;
               this.address.estado = this.address_by_cep.uf;
