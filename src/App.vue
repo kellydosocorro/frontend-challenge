@@ -36,16 +36,18 @@ export default {
   text-align: center;
   color: #2c3e50;
 }
-.fade-enter-active, .fade-leave-active {
+.fade-enter-active,
+.fade-leave-active {
   transition-property: opacity;
-  transition-duration: .15s;
+  transition-duration: 0.15s;
 }
 
 .fade-enter-active {
-  transition-delay: .15s;
+  transition-delay: 0.15s;
 }
 
-.fade-enter, .fade-leave-active {
-  opacity: 0
+.fade-enter,
+.fade-leave-active {
+  opacity: 0;
 }
 </style>

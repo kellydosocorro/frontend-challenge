@@ -174,13 +174,6 @@ export default {
     };
   },
   methods: {
-    disableSubmit() {
-      if (this.cepReturnErro()) {
-        return true;
-      } else {
-        return true;
-      }
-    },
     cepReturnErro() {
       if ("erro" in this.address_by_cep) {
         if (this.address_by_cep.erro) {
