@@ -223,7 +223,6 @@ export default {
       }
     },
     clearAll() {
-      this.address.cep = "";
       this.address.logradouro = "";
       this.address.numero = "";
       this.address.complemento = "";
@@ -234,7 +233,7 @@ export default {
   watch: {
     "address.cep": async function() {
       this.error.status = false;
-      if (this.address.cep.length === 0) {
+      if (this.address.cep.length < 10) {
         this.clearAll();
       }
       if (this.address.cep.length === 10) {
