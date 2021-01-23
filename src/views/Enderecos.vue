@@ -17,7 +17,7 @@
               <b-icon icon="pencil-fill" />
             </b-button>
             <!-- Botão para excluir o endereço -->
-            <b-button variant="link" @click="deletarEndereco(item)">
+            <b-button variant="link" @click="confirmacaoDeletarEndereco(item)">
               <b-icon icon="trash" />
             </b-button>
           </b-button-group>
@@ -26,7 +26,6 @@
         <Modal
           :id="'editar-' + formatarCEP(item.cep) + '-' + item.numero"
           :title="item.cep + ' - Editar'"
-          :isShow.sync="isShow"
         >
           <template v-slot:body>
             <form>
@@ -135,6 +134,24 @@
           </template>
         </Modal>
         <!-- Final do Modal de Edição -->
+        <!-- Começo do Modal de Exclusão -->
+        <Modal
+          :id="'deletar-' + formatarCEP(item.cep) + '-' + item.numero"
+          title="Excluir endereço"
+          size="sm"
+        >
+          <template v-slot:body>
+            <p>Tem certeza que deseja excluir este endereço?</p>
+            <b-button
+              block
+              class="rounded-0"
+              variant="danger"
+              @click="deletarEndereco(item)"
+              >Deletar</b-button
+            >
+          </template>
+        </Modal>
+        <!-- Final do Modal de Exclusão -->
       </template>
       <!-- Fim da personalização do campo Opções -->
     </b-table>
@@ -199,18 +216,25 @@ export default {
           }
         }
         localStorage.setItem("addresses", JSON.stringify(this.enderecos));
-        this.$bvModal.hide(
-          "editar-" + this.formatarCEP(paraEditar.cep) + "-" + paraEditar.numero
-        );
       } catch (e) {
         this.error.status = true;
         this.error.message = e.message;
       }
+      this.$bvModal.hide(
+        "editar-" + this.formatarCEP(paraEditar.cep) + "-" + paraEditar.numero
+      );
     },
     abrirEdicaoEndereco(paraAbrir) {
-      console.log(paraAbrir);
       this.$bvModal.show(
         "editar-" + this.formatarCEP(paraAbrir.cep) + "-" + paraAbrir.numero
+      );
+    },
+    confirmacaoDeletarEndereco(paraDeletar) {
+      this.$bvModal.show(
+        "deletar-" +
+          this.formatarCEP(paraDeletar.cep) +
+          "-" +
+          paraDeletar.numero
       );
     },
     deletarEndereco(paraDeletar) {
@@ -226,6 +250,12 @@ export default {
         this.error.status = true;
         this.error.message = e.message;
       }
+      this.$bvModal.show(
+        "deletar-" +
+          this.formatarCEP(paraDeletar.cep) +
+          "-" +
+          paraDeletar.numero
+      );
     },
     apagarTodos() {
       localStorage.setItem("addresses", JSON.stringify([]));
