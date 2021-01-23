@@ -134,7 +134,7 @@
           </template>
         </Modal>
         <!-- Final do Modal de Edição -->
-        <!-- Começo do Modal de Exclusão -->
+        <!-- Começo do Modal de Exclusão de item -->
         <Modal
           :id="'deletar-' + formatarCEP(item.cep) + '-' + item.numero"
           title="Excluir endereço"
@@ -151,12 +151,29 @@
             >
           </template>
         </Modal>
-        <!-- Final do Modal de Exclusão -->
+        <!-- Final do Modal de Exclusão de item -->
       </template>
       <!-- Fim da personalização do campo Opções -->
     </b-table>
+    <!-- Começo do Modal de Exclusão de todos os endereços -->
+    <Modal id="deletar-todos" title="Excluir todos os endereços" size="md">
+      <template v-slot:body>
+        <p>Tem certeza que deseja excluir todos os endereços cadastrados?</p>
+        <b-button
+          block
+          class="rounded-0"
+          variant="danger"
+          @click="apagarTodos()"
+          >Deletar</b-button
+        >
+      </template>
+    </Modal>
+    <!-- Final do Modal de Exclusão de todos os endereços -->
     <!-- Fim da tabela de enderecos -->
-    <b-button class="rounded-0" variant="danger" @click="apagarTodos()"
+    <b-button
+      class="rounded-0"
+      variant="danger"
+      @click="confirmacaoApagarTodos()"
       >Apagar todos</b-button
     >
   </b-container>
@@ -250,16 +267,20 @@ export default {
         this.error.status = true;
         this.error.message = e.message;
       }
-      this.$bvModal.show(
+      this.$bvModal.hide(
         "deletar-" +
           this.formatarCEP(paraDeletar.cep) +
           "-" +
           paraDeletar.numero
       );
     },
+    confirmacaoApagarTodos() {
+      this.$bvModal.show("deletar-todos");
+    },
     apagarTodos() {
       localStorage.setItem("addresses", JSON.stringify([]));
       this.enderecos = JSON.parse(localStorage.getItem("addresses"));
+      this.$bvModal.hide("deletar-todos");
     }
   },
   created() {
