@@ -1,5 +1,5 @@
 <template>
-  <b-modal :id="id" :size="size" hide-footer v-model="isShow">
+  <b-modal :id="id" :size="size" hide-footer show>
     <template v-slot:modal-title>
       <b-row align-v="center">
         <b-col>
@@ -18,11 +18,6 @@
 <script>
 export default {
   name: "Modal",
-  data() {
-    return {
-      isShow: false
-    };
-  },
   props: {
     title: {
       type: String,
@@ -35,12 +30,6 @@ export default {
     size: {
       type: String,
       default: "lg"
-    }
-  },
-  methods: {},
-  watch: {
-    isShow() {
-      this.$emit("update:isShow", this.isShow);
     }
   }
 };

@@ -3,13 +3,21 @@
     <!-- Mensagens de erro -->
     <Alert :display="error.status" :message="error.message" />
     <!-- Começo da tabela de endereços -->
-    <b-table striped hover :items="enderecos" :fields="fields" show-empty>
+    <b-table
+      striped
+      hover
+      :items="enderecos"
+      :fields="fields"
+      responsive
+      show-empty
+    >
       <!-- Mensagem para exibição quando a tabela está vazia -->
       <template #empty>
         <h6>Não há endereços cadastrados para exibição</h6>
       </template>
       <!-- Personalização do campo Opções -->
       <template v-slot:cell(opcoes)="{ item }">
+        <!-- Começo da toolbar de opções do item -->
         <b-button-toolbar :aria-label="'Opções para o cep ' + item.cep">
           <b-button-group size="sm" class="options-toolbar">
             <!-- Botão para editar o endereço -->
@@ -22,6 +30,7 @@
             </b-button>
           </b-button-group>
         </b-button-toolbar>
+        <!-- Final da toolbar de opções do item -->
         <!-- Começo do Modal de Edição -->
         <Modal
           :id="'editar-' + formatarCEP(item.cep) + '-' + item.numero"
