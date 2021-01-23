@@ -137,8 +137,8 @@
               class="rounded-0"
               variant="light"
               type="submit"
-              :disabled="disableSubmit"
-              :title="disableSubmit() ? 'Digite um CEP e número' : ''"
+              :disabled="cepReturnErro()"
+              :title="cepReturnErro() ? 'Digite um CEP e número' : ''"
               >Cadastrar endereço</b-button
             >
           </b-row>
@@ -175,10 +175,10 @@ export default {
   },
   methods: {
     disableSubmit() {
-      if (this.address.cep === "" && this.address.numero === "" && this.cepReturnErro()) {
+      if (this.cepReturnErro()) {
         return true;
       } else {
-        return false;
+        return true;
       }
     },
     cepReturnErro() {
@@ -234,7 +234,7 @@ export default {
     }
   },
   watch: {
-    "address.cep": async function () {
+    "address.cep": async function() {
       this.error.status = false;
       if (this.address.cep.length === 0) {
         this.clearAll();
