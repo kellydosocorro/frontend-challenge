@@ -33,7 +33,7 @@
                   placeholder="00.000-000"
                   v-mask="'XX.XXX-XXX'"
                   class="rounded-0"
-                  :state="address.cep.length === 10"
+                  :state="address.cep.length === 10 && !cepReturnErro()"
                   required
                 ></b-form-input>
               </b-form-group>
@@ -137,7 +137,7 @@
               class="rounded-0"
               variant="light"
               type="submit"
-              :disabled="disableSubmit()"
+              :disabled="disableSubmit"
               :title="disableSubmit() ? 'Digite um CEP e número' : ''"
               >Cadastrar endereço</b-button
             >
@@ -175,8 +175,19 @@ export default {
   },
   methods: {
     disableSubmit() {
-      if (this.address.cep === "" && this.address.numero === "") {
+      if (this.address.cep === "" && this.address.numero === "" && this.cepReturnErro()) {
         return true;
+      } else {
+        return false;
+      }
+    },
+    cepReturnErro() {
+      if ("erro" in this.address_by_cep) {
+        if (this.address_by_cep.erro) {
+          return true;
+        } else {
+          return false;
+        }
       }
       return false;
     },
@@ -223,15 +234,15 @@ export default {
     }
   },
   watch: {
-    "address.cep"() {
+    "address.cep": async function () {
       this.error.status = false;
       if (this.address.cep.length === 0) {
         this.clearAll();
       }
-      if (this.address.cep.length > 7) {
+      if (this.address.cep.length === 10) {
         let cep = this.address.cep.replace("-", "");
         cep = cep.replace(".", "");
-        this.$axios
+        await this.$axios
           .get(`https://viacep.com.br/ws/${cep}/json/`)
           .then(response => {
             this.address_by_cep = response.data;
